@@ -1,6 +1,6 @@
 # Time Machine
 
-A Job scheduler that uses redis to set jobs. Jobs can be scheduled using a HTTP request
+A distributed, fault tolerant job scheduler that uses redis to set jobs. Jobs can be scheduled using a HTTP request
 
 ## Getting Started
 

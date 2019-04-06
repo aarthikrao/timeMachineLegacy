@@ -24,10 +24,17 @@ type Request struct {
 
 func main() {
 	defer redisClient.Close()
+	// Spawn a routine for checking missed jobs
 	go feedBack()
-	go processor(1)
-	// sendMQMessaage()
-	test()
+	// Spawn 5 Processor routines
+	for i := 0; i < 5; i++ {
+		go processor(i)
+	}
+	// Spawn 5 MQ Sender routines
+	for i := 0; i < 5; i++ {
+		go sendMQMessaage()
+	}
+	// test() // Uncomment to schedule jobs for testing
 	http.HandleFunc("/", createJobHandler)
 	log.Fatal(http.ListenAndServe(":3000", nil))
 
@@ -35,11 +42,9 @@ func main() {
 
 // Test cases
 func test() {
-	for i := 0; i < 10; i++ {
-		addJob(float64(currentTime()+int64(i*2)), fmt.Sprintf("%d", i))
-	}
-	for i := 10; i < 15; i++ {
-		addJob(float64(currentTime()+10), fmt.Sprintf("%d", i))
+	// Set 1 lakh jobs at the same time
+	for i := 0; i < 1000000; i++ {
+		addJob(float64(currentTime()+5), fmt.Sprintf("%d", i))
 	}
 }
 

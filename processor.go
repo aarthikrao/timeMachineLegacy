@@ -52,7 +52,7 @@ func runJob(job redis.ZWithKey) {
 	fmt.Println("Running job :: Time:", job.Score, " Job:", job.Member)
 	//Remove from backup set
 	removeJobFromRedis(backupRedisKey, fmt.Sprintf("%v", job.Member))
-	// msgCh <- fmt.Sprint("Running job :: Time:", job.Score, " Job:", job.Member)
+	msgCh <- "JOB SCHEDULED" //fmt.Sprint("Running job :: Time:", job.Score, " Job:", job.Member)
 }
 
 // Adds job to main set

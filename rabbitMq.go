@@ -20,8 +20,11 @@ func sendMQMessaage() {
 		false,   // no-wait
 		nil,     // arguments
 	)
+	// count := 0
 	for {
 		message := <-msgCh
+		// count++
+		// fmt.Println("count : ", count, " Time:", currentTime())
 		fmt.Println("Sending message:", message)
 		ch.Publish(
 			"",     // exchange

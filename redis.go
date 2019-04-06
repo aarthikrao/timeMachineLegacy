@@ -12,7 +12,7 @@ var backupRedisKey = "mySet"
 
 var redisClient = redis.NewClient(&redis.Options{
 	Addr:       "localhost:6379",
-	PoolSize:   2,
+	PoolSize:   5,
 	MaxRetries: 2,
 	// Password:   "",
 	DB: 0,
@@ -21,7 +21,7 @@ var redisClient = redis.NewClient(&redis.Options{
 func removeJobFromRedis(setName string, jobName string) {
 	err := redisClient.ZRem(setName, jobName)
 	if err != nil {
-		fmt.Println("Error in removing job from redis : " + jobName)
+		// fmt.Println("Error in removing job from redis : " + jobName)
 		// panic(err)
 	}
 }
